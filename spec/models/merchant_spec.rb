@@ -16,10 +16,13 @@ RSpec.describe Merchant, type: :model do
           create(:merchant)
         end
 
-        expect(Merchant.all_merchants(1).first.class).to eq(Merchant)
         expect(Merchant.all_merchants(1).count).to eq(20)
-        expect(Merchant.all_merchants(2).first.class).to eq(Merchant)
+        expect(Merchant.all_merchants(1).first.id).to eq(1)
+        expect(Merchant.all_merchants(1).last.id).to eq(20)
+
         expect(Merchant.all_merchants(2).count).to eq(2)
+        expect(Merchant.all_merchants(2).first.id).to eq(21)
+        expect(Merchant.all_merchants(2).last.id).to eq(22)
       end
     end
   end
