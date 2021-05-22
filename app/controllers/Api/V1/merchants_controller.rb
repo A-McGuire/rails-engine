@@ -1,6 +1,5 @@
 class Api::V1::MerchantsController < ApplicationController
   def index
-    binding.pry
     if params[:page].present?
       merchants = Merchant.all_merchants(params[:page])
     else

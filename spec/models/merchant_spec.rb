@@ -10,24 +10,34 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'class methods' do
-    describe '.all_merchants(page_number)' do
-      it 'returns all merchants, 20 at a time' do
-        22.times do
+    describe '.all_merchants(page_number, per_page)' do
+      it 'returns all merchants, 20 at a time default' do
+        25.times do
           create(:merchant)
         end
 
         expect(Merchant.all_merchants(1).count).to eq(20)
-        expect(Merchant.all_merchants(1).first.id).to eq(1)
-        expect(Merchant.all_merchants(1).last.id).to eq(20)
+        expect(Merchant.all_merchants(1).first.name).to eq('merchant1')
+        expect(Merchant.all_merchants(1).last.name).to eq('merchant20')
 
-        expect(Merchant.all_merchants(2).count).to eq(2)
-        expect(Merchant.all_merchants(2).first.id).to eq(21)
-        expect(Merchant.all_merchants(2).last.id).to eq(22)
+        expect(Merchant.all_merchants(2).count).to eq(5)
+        expect(Merchant.all_merchants(2).first.name).to eq('merchant21')
+        expect(Merchant.all_merchants(2).last.name).to eq('merchant25')
+      end
+
+      it 'returns first page if no page is specified' do
+        25.times do
+          create(:merchant)
+        end
+
+        expect(Merchant.all_merchants.count).to eq(20)
+        expect(Merchant.all_merchants.first.name).to eq('merchant26')
+        expect(Merchant.all_merchants.last.name).to eq('merchant45')
       end
     end
 
     describe 'merchant(id)' do
-      it 'returns the merchant with the given id' do
+      skip 'returns the merchant with the given id' do
         3.times do
           create(:merchant)
         end
