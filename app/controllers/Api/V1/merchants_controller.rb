@@ -3,4 +3,9 @@ class Api::V1::MerchantsController < ApplicationController
     merchants = MerchantFacade.all_merchants_helper(params)
     render json: MerchantSerializer.new(merchants).serializable_hash
   end
+
+  def show
+    merchant = Merchant.find(params[:id])
+    var = render json: MerchantSerializer.new(merchant).serializable_hash
+  end
 end
