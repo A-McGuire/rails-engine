@@ -10,7 +10,7 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'class methods' do
-    describe '.all_merchants' do
+    describe '.all_merchants(page_number)' do
       it 'returns all merchants, 20 at a time' do
         22.times do
           create(:merchant)
@@ -23,6 +23,18 @@ RSpec.describe Merchant, type: :model do
         expect(Merchant.all_merchants(2).count).to eq(2)
         expect(Merchant.all_merchants(2).first.id).to eq(21)
         expect(Merchant.all_merchants(2).last.id).to eq(22)
+      end
+    end
+
+    describe 'merchant(id)' do
+      it 'returns the merchant with the given id' do
+        3.times do
+          create(:merchant)
+        end
+
+        expect(Merchant.merchant(2).id).to eq(2)
+        expect(Merchant.merchant(3).id).to eq(3)
+        expect(Merchant.merchant(1).id).to eq(1)
       end
     end
   end
