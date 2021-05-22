@@ -6,5 +6,9 @@ class Merchant < ApplicationRecord
     def all_merchants(page_number)
       Merchant.all.limit(20).offset((page_number - 1) * 20)
     end
+
+    def merchant(id)
+      find(id)
+    end
   end
 end
