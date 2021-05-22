@@ -1,10 +1,12 @@
 class Api::V1::MerchantsController < ApplicationController
   def index
-    if params[:page].present?
-      merchants = Merchant.all_merchants(params[:page])
-    else
-      merchants = Merchant.all_merchants(1)
-    end
+    merchants = helper(params)
     render json: MerchantSerializer.new(merchants).serializable_hash
+  end
+
+  def helper(params)
+    return Merchant.all_merchants() if params[:page].nil? && params[:per_page].nil?
+    return Merchant.all_merchants(1, params[:per_page].to_i) if params[:per_page].present?
+    return Merchant.all_merchants(params[:page].to_i) if params[:page].present?
   end
 end

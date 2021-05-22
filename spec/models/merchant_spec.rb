@@ -29,10 +29,30 @@ RSpec.describe Merchant, type: :model do
         25.times do
           create(:merchant)
         end
-
+        
         expect(Merchant.all_merchants.count).to eq(20)
         expect(Merchant.all_merchants.first.name).to eq('merchant26')
         expect(Merchant.all_merchants.last.name).to eq('merchant45')
+      end
+      
+      it 'returns the first page if the page number is less than 1' do
+        25.times do
+          create(:merchant)
+        end
+
+        expect(Merchant.all_merchants(-1).count).to eq(20)
+        expect(Merchant.all_merchants.first.name).to eq('merchant51')
+        expect(Merchant.all_merchants.last.name).to eq('merchant70')
+      end
+
+      it 'can specify the number of merchants per page' do
+        25.times do
+          create(:merchant)
+        end
+
+        expect(Merchant.all_merchants(per_page = 25).count).to eq(20)
+        expect(Merchant.all_merchants.first.name).to eq('merchant71')
+        expect(Merchant.all_merchants.last.name).to eq('merchant95')
       end
     end
 
