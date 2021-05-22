@@ -10,7 +10,7 @@ RSpec.describe Merchant, type: :model do
   end
 
   describe 'class methods' do
-    describe '.all_merchants(page_number, per_page)' do
+    describe '.all_merchants(page_number = 1, per_page = 20)' do
       it 'returns all merchants, 20 at a time default' do
         25.times do
           create(:merchant)
@@ -50,8 +50,8 @@ RSpec.describe Merchant, type: :model do
           create(:merchant)
         end
 
-        expect(Merchant.all_merchants(per_page = 25).count).to eq(20)
-        expect(Merchant.all_merchants.first.name).to eq('merchant71')
+        expect(Merchant.all_merchants(page_number = 1, per_page = 25).count).to eq(25)
+        expect(Merchant.all_merchants.first.name).to eq('merchant76')
         expect(Merchant.all_merchants.last.name).to eq('merchant95')
       end
     end
