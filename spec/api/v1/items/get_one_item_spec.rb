@@ -6,7 +6,7 @@ RSpec.describe 'items show' do
     create(:item, id: 1)
     
     get '/api/v1/items/1'
-
+    
     expect(response).to be_successful
     expect(response.status).to eq(200)
     

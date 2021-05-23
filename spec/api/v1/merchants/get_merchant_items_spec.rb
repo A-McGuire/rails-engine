@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'merchants show' do
 
-  it 'can get one merchant w/ attrs' do
+  it 'can get one merchants items w/ attrs' do
     create(:merchant, id: 1)
     
     10.times do
