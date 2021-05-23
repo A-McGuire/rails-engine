@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'items index' do
   it 'can get all items & item attrs' do
-    # 2.times do
-    #   create(:merchant)
-    # end
-
     50.times do
       create(:item)
     end
