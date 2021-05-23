@@ -18,4 +18,14 @@ RSpec.describe 'merchants show' do
     expect(merchant[:data][:attributes]).to be_a Hash
     expect(merchant[:data][:attributes][:name]).to be_a String
   end
+
+  it 'returns 404 if an invalid merchant id is given' do
+    create(:merchant)
+
+    get '/api/v1/merchants/9999999'
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(404)
+    expect(response.body).to eq("Couldn't find Merchant with 'id'=9999999")
+  end
 end
