@@ -38,4 +38,52 @@ RSpec.describe 'Create an item' do
     expect(items[:data][:attributes]).to have_key(:merchant_id)
     expect(items[:data][:attributes][:merchant_id]).to be_a Integer
   end
+
+  it 'returns a 422 if request is missing merchant_id' do
+    merchant = Merchant.create!(id: 14, name: "merchant")
+    post '/api/v1/items', params: {"item" => {
+                                  "name": "value1",
+                                  "description": "value2",
+                                  "unit_price": 100.99
+                                }}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(422)
+  end
+
+  it 'returns a 422 if request is missing name' do
+    merchant = Merchant.create!(id: 14, name: "merchant")
+    post '/api/v1/items', params: {"item" => {
+                                  "description": "value2",
+                                  "unit_price": 100.99,
+                                  "merchant_id": 14
+                                }}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(422)
+  end
+
+  it 'returns a 422 if request is missing description' do
+    merchant = Merchant.create!(id: 14, name: "merchant")
+    post '/api/v1/items', params: {"item" => {
+                                  "name": "value1",
+                                  "unit_price": 100.99,
+                                  "merchant_id": 14
+                                }}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(422)
+  end
+
+  it 'returns a 422 if request is missing unit_price' do
+    merchant = Merchant.create!(id: 14, name: "merchant")
+    post '/api/v1/items', params: {"item" => {
+                                  "name": "value1",
+                                  "description": "value2",
+                                  "merchant_id": 14
+                                }}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(422)
+  end
 end
