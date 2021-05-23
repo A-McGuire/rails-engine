@@ -6,6 +6,6 @@ class Api::V1::MerchantsController < ApplicationController
 
   def show
     merchant = Merchant.find(params[:id])
-    var = render json: MerchantSerializer.new(merchant).serializable_hash
+    render json: MerchantSerializer.new(merchant).serializable_hash
   end
 end

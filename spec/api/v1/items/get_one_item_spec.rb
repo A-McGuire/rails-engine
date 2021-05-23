@@ -27,6 +27,6 @@ RSpec.describe 'items show' do
 
     expect(response).to_not be_successful
     expect(response.status).to eq(404)
-    expect(response.body).to eq("Couldn't find Merchant with 'id'=9999999")
+    expect(response.body).to eq("Couldn't find Item with 'id'=9999999")
   end
 end
