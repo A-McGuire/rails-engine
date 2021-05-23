@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Merchant, type: :model do
+  before :each do
+    FactoryBot.reload
+  end
+
   describe '.all_merchants(page_number = 1, per_page = 20)' do
     it 'returns all merchants, 20 at a time default' do
       25.times do
@@ -22,8 +26,8 @@ RSpec.describe Merchant, type: :model do
       end
       
       expect(Merchant.all_merchants.count).to eq(20)
-      expect(Merchant.all_merchants.first.name).to eq('merchant26')
-      expect(Merchant.all_merchants.last.name).to eq('merchant45')
+      expect(Merchant.all_merchants.first.name).to eq('merchant1')
+      expect(Merchant.all_merchants.last.name).to eq('merchant20')
     end
     
     it 'returns the first page if the page number is less than 1' do
@@ -32,8 +36,8 @@ RSpec.describe Merchant, type: :model do
       end
 
       expect(Merchant.all_merchants(-1).count).to eq(20)
-      expect(Merchant.all_merchants.first.name).to eq('merchant51')
-      expect(Merchant.all_merchants.last.name).to eq('merchant70')
+      expect(Merchant.all_merchants.first.name).to eq('merchant1')
+      expect(Merchant.all_merchants.last.name).to eq('merchant20')
     end
 
     it 'can specify the number of merchants per page' do
@@ -42,8 +46,8 @@ RSpec.describe Merchant, type: :model do
       end
 
       expect(Merchant.all_merchants(page_number = 1, per_page = 25).count).to eq(25)
-      expect(Merchant.all_merchants.first.name).to eq('merchant76')
-      expect(Merchant.all_merchants.last.name).to eq('merchant95')
+      expect(Merchant.all_merchants(page_number = 1, per_page = 25).first.name).to eq('merchant1')
+      expect(Merchant.all_merchants(page_number = 1, per_page = 25).last.name).to eq('merchant25')
     end
   end
 end
