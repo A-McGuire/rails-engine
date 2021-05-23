@@ -8,5 +8,9 @@ class Merchant < ApplicationRecord
       page_number = 1 if page_number <= 0
       Merchant.all.limit(per_page).offset((page_number - 1).abs * per_page)
     end
+
+    def merchant_items(merchant_id)
+      find(merchant_id).items
+    end
   end
 end

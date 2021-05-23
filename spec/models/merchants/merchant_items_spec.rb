@@ -7,5 +7,8 @@ RSpec.describe '.merchant_items(merchant_id' do
       create(:item, merchant_id: 1)
     end
     
+    expect(Merchant.merchant_items(merchant.id).count).to eq(10)
+    expect(Merchant.merchant_items(merchant.id).first.merchant_id).to eq(1)
+    expect(Merchant.merchant_items(merchant.id).last.merchant_id).to eq(1)
   end
 end
