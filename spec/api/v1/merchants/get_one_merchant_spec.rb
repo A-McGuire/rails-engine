@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'merchants show' do
+
   it 'can get one merchant w/ attrs' do
-    create(:merchant)
+    create(:merchant, id: 1)
     
     get '/api/v1/merchants/1'
 
