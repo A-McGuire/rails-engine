@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Create an item' do
   it 'creates an item' do
     merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => {
+    post '/api/v1/items', params: {"item" => { #reqs say this is not included
                                   "name": "value1",
                                   "description": "value2",
                                   "unit_price": 100.99,
@@ -12,31 +12,38 @@ RSpec.describe 'Create an item' do
     
     expect(response).to be_successful
     expect(response.status).to eq(201)
+
+    expect(Item.find_by(name: "value1").present?).to eq(true)
     
-    items = JSON.parse(response.body, symbolize_names: true)
+    item_test = Item.find_by(name: "value1")
+    expect(item_test.description).to eq("value2")
+    expect(item_test.unit_price).to eq(100.99)
+    expect(item_test.merchant_id).to eq(14)
     
-    expect(items).to be_a Hash
-    expect(items).to have_key(:data)
-    expect(items[:data]).to be_a Hash
-    expect(items[:data].count).to eq(3)
-    expect(items[:data]).to have_key(:id)
-    expect(items[:data][:id]).to be_a String
-    expect(items[:data]).to have_key(:type)
-    expect(items[:data][:type]).to be_a String
-    expect(items[:data]).to have_key(:attributes)
-    expect(items[:data][:attributes]).to be_a Hash
+    item = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(item).to be_a Hash
+    expect(item).to have_key(:data)
+    expect(item[:data]).to be_a Hash
+    expect(item[:data].count).to eq(3)
+    expect(item[:data]).to have_key(:id)
+    expect(item[:data][:id]).to be_a String
+    expect(item[:data]).to have_key(:type)
+    expect(item[:data][:type]).to be_a String
+    expect(item[:data]).to have_key(:attributes)
+    expect(item[:data][:attributes]).to be_a Hash
 
-    expect(items[:data][:attributes]).to have_key(:name)
-    expect(items[:data][:attributes][:name]).to be_a String
+    expect(item[:data][:attributes]).to have_key(:name)
+    expect(item[:data][:attributes][:name]).to be_a String
 
-    expect(items[:data][:attributes]).to have_key(:description)
-    expect(items[:data][:attributes][:description]).to be_a String
+    expect(item[:data][:attributes]).to have_key(:description)
+    expect(item[:data][:attributes][:description]).to be_a String
 
-    expect(items[:data][:attributes]).to have_key(:unit_price)
-    expect(items[:data][:attributes][:unit_price]).to be_a Float
+    expect(item[:data][:attributes]).to have_key(:unit_price)
+    expect(item[:data][:attributes][:unit_price]).to be_a Float
 
-    expect(items[:data][:attributes]).to have_key(:merchant_id)
-    expect(items[:data][:attributes][:merchant_id]).to be_a Integer
+    expect(item[:data][:attributes]).to have_key(:merchant_id)
+    expect(item[:data][:attributes][:merchant_id]).to be_a Integer
   end
 
   it 'returns a 422 if request is missing merchant_id' do
