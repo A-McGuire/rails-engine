@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Create an item' do
   it 'creates an item' do
     merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => { #reqs say this is not included
+    post '/api/v1/items', params: {"item" => {
                                   "name": "value1",
                                   "description": "value2",
                                   "unit_price": 100.99,
