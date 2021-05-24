@@ -7,6 +7,7 @@ RSpec.describe 'delete item' do
     
     expect(response).to be_successful
     expect(response.status).to eq(204)
+    expect(Item.all).to eq([])
   end
   
   it 'returns 404 for bad item id' do
@@ -45,7 +46,7 @@ RSpec.describe 'delete item' do
     
     expect(response).to be_successful
     expect(response.status).to eq(204)
-    
+    expect(Item.where(id: 3).empty?).to eq(true)
     expect(Invoice.all).to eq([invoice])
     expect(InvoiceItem.all).to eq([invoice_item2])
   end
