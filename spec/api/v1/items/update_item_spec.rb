@@ -45,4 +45,17 @@ RSpec.describe 'update an item' do
     expect(item[:data][:attributes]).to have_key(:merchant_id)
     expect(item[:data][:attributes][:merchant_id]).to be_a Integer
   end
+
+  it 'returns a 404 if request has bad item id' do
+    merchant = Merchant.create!(id: 14, name: "merchant")
+    create(:item, id: 1, merchant_id: 14)
+    put '/api/v1/items/2', params: {"item" => {
+                                  "name": "value1",
+                                  "description": "value2",
+                                  "unit_price": 100.99
+                                }}
+
+    expect(response).to_not be_successful
+    expect(response.status).to eq(404)
+  end
 end
