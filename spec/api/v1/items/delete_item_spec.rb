@@ -47,6 +47,7 @@ RSpec.describe 'delete item' do
     expect(response).to be_successful
     expect(response.status).to eq(204)
     expect(Item.where(id: 3).empty?).to eq(true)
+    expect(Item.where(id: 5).empty?).to eq(false)
     expect(Invoice.all).to eq([invoice])
     expect(InvoiceItem.all).to eq([invoice_item2])
   end
