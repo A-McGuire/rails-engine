@@ -1,25 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe 'Create an item' do
-  it 'creates an item' do
+RSpec.describe 'update an item' do
+  it 'updates an item with the provided params' do
     merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => { 
+    create(:item, id: 1, merchant_id: 14)
+
+    put '/api/v1/items/1', params: {"item" => {
                                   "name": "value1",
                                   "description": "value2",
                                   "unit_price": 100.99,
                                   "merchant_id": 14
-                                  }}
-    
+                                }}
     expect(response).to be_successful
-    expect(response.status).to eq(201)
-    # commented out because controller deletes item after creation for spec harness
-    # see last line of items controller
-    # expect(Item.find_by(name: "value1").present?).to eq(true)
-    
-    # item_test = Item.find_by(name: "value1")
-    # expect(item_test.description).to eq("value2")
-    # expect(item_test.unit_price).to eq(100.99)
-    # expect(item_test.merchant_id).to eq(14)
+    expect(response.status).to eq(200)
+
+    item_test = Item.find(1)
+    expect(item_test.name).to eq("value1")
+    expect(item_test.description).to eq("value2")
+    expect(item_test.unit_price).to eq(100.99)
+    expect(item_test.merchant_id).to eq(14)
     
     item = JSON.parse(response.body, symbolize_names: true)
     
@@ -47,51 +46,31 @@ RSpec.describe 'Create an item' do
     expect(item[:data][:attributes][:merchant_id]).to be_a Integer
   end
 
-  it 'returns a 422 if request is missing merchant_id' do
+  it 'returns a 404 if request has bad item id' do
     merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => {
+    create(:item, id: 1, merchant_id: 14)
+    put '/api/v1/items/2', params: {"item" => {
                                   "name": "value1",
-                                  "description": "value2",
-                                  "unit_price": 100.99
-                                }}
-
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
-  end
-
-  it 'returns a 422 if request is missing name' do
-    merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => {
                                   "description": "value2",
                                   "unit_price": 100.99,
                                   "merchant_id": 14
                                 }}
 
     expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(404)
   end
 
-  it 'returns a 422 if request is missing description' do
+  it 'returns a 404 if request has bad merchant id' do
     merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => {
-                                  "name": "value1",
-                                  "unit_price": 100.99,
-                                  "merchant_id": 14
-                                }}
-
-    expect(response).to_not be_successful
-    expect(response.status).to eq(422)
-  end
-
-  it 'returns a 422 if request is missing unit_price' do
-    merchant = Merchant.create!(id: 14, name: "merchant")
-    post '/api/v1/items', params: {"item" => {
+    create(:item, id: 1, merchant_id: 14)
+    put '/api/v1/items/1', params: {"item" => {
                                   "name": "value1",
                                   "description": "value2",
-                                  "merchant_id": 14
+                                  "unit_price": 100.99,
+                                  "merchant_id": 1
                                 }}
 
     expect(response).to_not be_successful
-    expect(response.status).to eq(422)
+    expect(response.status).to eq(404)
   end
 end
