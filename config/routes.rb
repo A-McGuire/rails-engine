@@ -5,12 +5,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :merchants, only: [:index, :show] 
       namespace :merchants do
-        get '/:merchant_id/items', to: 'search#index'
+        get '/:merchant_id/items', to: 'merchant_items#index'
       end
 
       resources :items, only: [:index, :show, :create, :update]
       namespace :items do
-        get '/:item_id/merchant', to: 'search#index'
+        get '/:item_id/merchant', to: 'items_merchant#index'
       end
     end
   end
