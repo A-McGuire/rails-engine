@@ -22,7 +22,7 @@ class Api::V1::ItemsController < ApplicationController
     else
       render json: item.errors, status: :unprocessable_entity
     end
-    item.delete
+    item.delete # TODO: Remove
   end
 
   def update
@@ -37,6 +37,8 @@ class Api::V1::ItemsController < ApplicationController
   def destroy
     item = find_item
     item.destroy
+    invoices = Invoice.find_empty
+    invoices.destroy_all
   end
 
   private

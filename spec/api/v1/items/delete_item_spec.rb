@@ -17,7 +17,7 @@ RSpec.describe 'delete item' do
     expect(response.status).to eq(404)
   end
 
-  skip 'destroys the invoice if this was the only item on the invoice' do
+  it 'destroys the invoice if this was the only item on the invoice' do
     Customer.create!(id: 1, first_name: "Cus", last_name: 'Tomer')
     Merchant.create!(id: 2, name: "Merchant")
     create(:item, id: 3, merchant_id: 2)
@@ -47,6 +47,7 @@ RSpec.describe 'delete item' do
     expect(response).to be_successful
     expect(response.status).to eq(204)
     expect(Item.where(id: 3).empty?).to eq(true)
+    expect(Item.where(id: 5).empty?).to eq(false)
     expect(Invoice.all).to eq([invoice])
     expect(InvoiceItem.all).to eq([invoice_item2])
   end
