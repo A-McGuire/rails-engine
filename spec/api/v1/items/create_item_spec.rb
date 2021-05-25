@@ -14,12 +14,12 @@ RSpec.describe 'Create an item' do
     expect(response.status).to eq(201)
     # commented out because controller deletes item after creation for spec harness
     # see last line of items controller
-    # expect(Item.find_by(name: "value1").present?).to eq(true)
+    expect(Item.find_by(name: "value1").present?).to eq(true)
     
-    # item_test = Item.find_by(name: "value1")
-    # expect(item_test.description).to eq("value2")
-    # expect(item_test.unit_price).to eq(100.99)
-    # expect(item_test.merchant_id).to eq(14)
+    item_test = Item.find_by(name: "value1")
+    expect(item_test.description).to eq("value2")
+    expect(item_test.unit_price).to eq(100.99)
+    expect(item_test.merchant_id).to eq(14)
     
     item = JSON.parse(response.body, symbolize_names: true)
     

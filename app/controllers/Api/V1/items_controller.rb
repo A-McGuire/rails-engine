@@ -22,7 +22,7 @@ class Api::V1::ItemsController < ApplicationController
     else
       render json: item.errors, status: :unprocessable_entity
     end
-    item.delete # TODO: Remove
+    # item.delete # uncomment for postman spec # TODO: delete
   end
 
   def update
