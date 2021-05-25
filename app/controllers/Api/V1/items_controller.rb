@@ -1,11 +1,17 @@
 class Api::V1::ItemsController < ApplicationController
+  before_action :find_item, only: [:show, :update, :destroy]
+
+  def find_item
+    Item.find(params[:id])
+  end
+
   def index
     items = ObjectsFacade.all_objects_helper(Item, params)
     render json: ItemSerializer.new(items).serializable_hash
   end
 
   def show
-    item = Item.find(params[:id])
+    item = find_item
     render json: ItemSerializer.new(item).serializable_hash
   end
 
@@ -20,12 +26,17 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
+    item = find_item
     if item.update(item_params)
       render json: ItemSerializer.new(item).serializable_hash, status: :ok
     else
       render json: item.errors, status: :not_found
     end
+  end
+
+  def destroy
+    item = find_item
+    item.destroy
   end
 
   private
