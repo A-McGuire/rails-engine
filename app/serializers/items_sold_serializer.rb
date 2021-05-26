@@ -1,4 +1,4 @@
 class ItemsSoldSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :count
+  attributes :name, :item_count
 end
