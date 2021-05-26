@@ -5,8 +5,8 @@ RSpec.describe 'Merchants with most revenue, with required quantity param' do
     customer = Customer.create!(first_name: "Cust", last_name: "Tomer")
     merchant1 = create(:merchant)
     merchant2 = create(:merchant)
-    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id)
-    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id)
+    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id, status: 'shipped')
+    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped')
     item1 = create(:item, merchant: merchant1)
     item2 = create(:item, merchant: merchant2)
 
@@ -31,11 +31,11 @@ RSpec.describe 'Merchants with most revenue, with required quantity param' do
     merchant4 = create(:merchant)
     merchant5 = create(:merchant)
 
-    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id)
-    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id)
-    invoice3 = create(:invoice, merchant_id: merchant3.id, customer_id: customer.id)
-    invoice4 = create(:invoice, merchant_id: merchant4.id, customer_id: customer.id)
-    invoice5 = create(:invoice, merchant_id: merchant5.id, customer_id: customer.id)
+    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id, status: 'shipped')
+    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped')
+    invoice3 = create(:invoice, merchant_id: merchant3.id, customer_id: customer.id, status: 'shipped')
+    invoice4 = create(:invoice, merchant_id: merchant4.id, customer_id: customer.id, status: 'shipped')
+    invoice5 = create(:invoice, merchant_id: merchant5.id, customer_id: customer.id, status: 'shipped')
 
     item1 = create(:item, merchant: merchant1)
     item2 = create(:item, merchant: merchant2)
@@ -76,8 +76,8 @@ RSpec.describe 'Merchants with most revenue, with required quantity param' do
     merchant1 = create(:merchant)
     merchant2 = create(:merchant)
 
-    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id)
-    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id)
+    invoice1 = create(:invoice, merchant_id: merchant1.id, customer_id: customer.id, status: 'shipped')
+    invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped')
 
     item1 = create(:item, merchant: merchant1)
     item2 = create(:item, merchant: merchant2)
