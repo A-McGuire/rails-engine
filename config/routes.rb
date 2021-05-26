@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       namespace :items do
         get '/:item_id/merchant', to: 'items_merchant#index'
       end
+
+      ### Custom ###
+
+      get '/revenue/merchants', to: 'merchants#most_revenue'
     end
   end
 end
