@@ -34,8 +34,8 @@ RSpec.describe 'Merchants with most items sold' do
     expect(merchants[:data].first[:id]).to be_a String
     expect(merchants[:data].first[:type]).to be_a String
     expect(merchants[:data].first[:attributes]).to be_a Hash
-    expect(merchants[:data].first[:attributes].keys).to eq([:name, :item_count])
+    expect(merchants[:data].first[:attributes].keys).to eq([:name, :count])
     expect(merchants[:data].first[:attributes][:name]).to be_a String
-    expect(merchants[:data].first[:attributes][:item_count]).to be_a Integer
+    expect(merchants[:data].first[:attributes][:count]).to be_a Integer
   end
 end
