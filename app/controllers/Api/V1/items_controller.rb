@@ -2,7 +2,7 @@ class Api::V1::ItemsController < ApplicationController
   before_action :find_item, only: [:show, :update, :destroy]
 
   def find_item
-    Item.find(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def index
@@ -11,8 +11,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    item = find_item
-    render json: ItemSerializer.new(item).serializable_hash
+    render json: ItemSerializer.new(@item).serializable_hash
   end
 
   def create
@@ -26,17 +25,15 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def update
-    item = find_item
-    if item.update(item_params)
-      render json: ItemSerializer.new(item).serializable_hash, status: :ok
+    if @item.update(item_params)
+      render json: ItemSerializer.new(@item).serializable_hash, status: :ok
     else
-      render json: item.errors, status: :not_found
+      render json: @item.errors, status: :not_found
     end
   end
 
   def destroy
-    item = find_item
-    item.destroy
+    @item.destroy
     invoices = Invoice.find_empty
     invoices.destroy_all
   end
