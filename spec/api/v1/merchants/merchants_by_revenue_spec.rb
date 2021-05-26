@@ -38,4 +38,20 @@ RSpec.describe 'Merchants with most revenue' do
     expect(merchants[:data].first[:attributes][:name]).to be_a String
     expect(merchants[:data].first[:attributes][:revenue]).to be_a Float
   end
+
+  describe 'sad path' do
+    it 'returns 400 if quantity is a string' do
+      get '/api/v1/merchants/most_items?quantity=blah'
+      
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns 400 if quantity is blank' do
+      get '/api/v1/merchants/most_items?quantity='
+    
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+  end
 end

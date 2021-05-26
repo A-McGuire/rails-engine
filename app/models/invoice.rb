@@ -1,6 +1,5 @@
 class Invoice < ApplicationRecord
   validates :status, presence: true
-  enum status: [ 'in progress', 'cancelled', 'shipped' ]
 
   belongs_to :customer
 
