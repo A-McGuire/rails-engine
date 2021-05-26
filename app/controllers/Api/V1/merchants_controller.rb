@@ -10,12 +10,8 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def most_revenue
-    if params[:quantity]
-      merchants = Merchant.by_total_revenue(params[:quantity])
-      render json: MerchantsByRevenueSerializer.new(merchants).serializable_hash
-    else
-      binding.pry
-      render json: { status: "error", code: 400, message: "Quantity parameter required" }
-    end
+    merchants = Merchant.by_total_revenue(params[:quantity])
+    render json: { status: "error", code: 400, message: "Quantity parameter required" } unless merchants
+    render json: MerchantNameRevenueSerializer.new(merchants).serializable_hash
   end
 end
