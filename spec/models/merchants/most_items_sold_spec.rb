@@ -13,13 +13,14 @@ RSpec.describe 'Merchants with most items sold' do
     transaction1 = create(:transaction, invoice: invoice1, result: 'success')
 
     transaction2 = create(:transaction, invoice: invoice2, result: 'success')
-    2.times do
-      create(:invoice_item, item: item1, invoice: invoice1)
-    end
-
-    create(:invoice_item, item: item2, invoice: invoice2)
     
-    expect(Merchant.most_items_sold(1)).to eq([merchant1])
+    create(:invoice_item, item: item1, invoice: invoice1)
+
+    2.times do
+      create(:invoice_item, item: item2, invoice: invoice2)
+    end
+    
+    expect(Merchant.most_items_sold(1)).to eq([merchant2])
   end
 
   it 'defaults to 5 merchants returned' do
