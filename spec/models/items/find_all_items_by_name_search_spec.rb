@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'find all items search' do
+RSpec.describe 'find all items by name search' do
   it 'returns items with partial search' do
     item3 = create(:item)
     item1 = create(:item)
