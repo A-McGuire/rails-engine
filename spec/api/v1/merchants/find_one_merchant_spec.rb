@@ -32,12 +32,16 @@ RSpec.describe 'Find one merchant' do
     end
 
     it 'returns an object even if no match is found' do
-      get '/api/v1/merchants/find'
+      get '/api/v1/merchants/find?name=z'
       
       expect(response).to be_successful
       expect(response.status).to eq(200)
 
       merchant = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchant).to be_a Hash
+      expect(merchant).to have_key(:data)
+      expect(merchant[:data]).to be_a Hash
     end
   end
 end
