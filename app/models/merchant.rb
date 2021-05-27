@@ -29,5 +29,12 @@ class Merchant < ApplicationRecord
       .limit(quantity)
       .order(item_count: :desc)
     end
+
+    def find_one(name)
+      where("name iLIKE :iq", iq: "%#{name.downcase}%")
+      .order(:name)
+      .limit(1)
+      .first
+    end
   end
 end
