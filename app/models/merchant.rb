@@ -31,10 +31,15 @@ class Merchant < ApplicationRecord
     end
 
     def find_one(name)
-      where("name iLIKE :iq", iq: "%#{name.downcase}%")
+      where("name iLIKE :search", search: "%#{name.downcase}%")
       .order(:name)
       .limit(1)
       .first
+    end
+
+    def total_revenue_by_dates(start_date, end_date)
+      binding.pry
+      joins(items: {invoice_items: {invoice: :transactions}})
     end
   end
 end
