@@ -16,5 +16,9 @@ class Item < ApplicationRecord
       where("name iLIKE :iq", iq: "%#{name}%")
       .order(:name)
     end
+
+    def find_by_min_max(min, max)
+      where("items.unit_price >= #{min} AND items.unit_price <= #{max}")
+    end
   end
 end
