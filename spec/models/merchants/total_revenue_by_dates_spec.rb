@@ -9,10 +9,10 @@ RSpec.describe 'total_revenue_by_dates(start, end)' do
     item1 = create(:item, merchant: merchant1)
     item2 = create(:item, merchant: merchant2)
 
-    transaction1 = create(:transaction, invoice: invoice1, result: 'success', updated_at: '2012-03-09') #200
-    transaction2 = create(:transaction, invoice: invoice2, result: 'success', updated_at: '2012-03-10') #100
-    transaction3 = create(:transaction, invoice: invoice2, result: 'success', updated_at: '2012-03-08') #outside date range, not counted
-    transaction4 = create(:transaction, invoice: invoice2, result: 'failed', updated_at: '2012-03-10') #failed, no counted
+    transaction1 = create(:transaction, invoice: invoice1, result: 'success', created_at: '2012-03-09') #200
+    transaction2 = create(:transaction, invoice: invoice2, result: 'success', created_at: '2012-03-10') #100
+    transaction3 = create(:transaction, invoice: invoice2, result: 'success', created_at: '2012-03-08') #outside date range, not counted
+    transaction4 = create(:transaction, invoice: invoice2, result: 'failed', created_at: '2012-03-10') #failed, no counted
 
     2.times do
       create(:invoice_item, item: item1, invoice: invoice1) #unit_price 10, quantity 10, revenue => 200
