@@ -5,6 +5,7 @@ class Api::V1::Merchants::MerchantsSearchController < ApplicationController
   def find_one
     return render status: 400 unless valid_name?(params[:name])
     merchant = Merchant.find_one(params[:name])
-    render json: MerchantSerializer.new(merchant).serializable_hash
+    return render json: MerchantSerializer.new(merchant).serializable_hash if merchant
+    render json:{data: {}}
   end
 end
