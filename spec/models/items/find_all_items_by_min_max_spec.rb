@@ -7,6 +7,6 @@ RSpec.describe 'find all items by min max search' do
     item3 = create(:item, unit_price: 30)
     item4 = create(:item, unit_price: 40)
 
-    expect(Item.find_by_min_max(15, 35)).to eq([item2, item3])
+    expect(Item.find_by_min_max(11, 39)).to eq([item2, item3])
   end
 end
