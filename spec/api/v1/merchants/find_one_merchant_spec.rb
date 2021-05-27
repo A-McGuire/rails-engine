@@ -24,11 +24,20 @@ RSpec.describe 'Find one merchant' do
   end
 
   describe 'sad path' do
-    it 'require a query string param' do
+    it 'requires a query string param' do
       get '/api/v1/merchants/find'
 
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
+    end
+
+    it 'returns an object even if no match is found' do
+      get '/api/v1/merchants/find'
+      
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      merchant = JSON.parse(response.body, symbolize_names: true)
     end
   end
 end
