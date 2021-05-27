@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       get '/revenue/merchants', to: 'merchants#most_revenue'
       get '/merchants/find', to: 'merchants/merchants_search#find_one'
       get '/items/find_all', to: 'items/items_search#find_all'
+      
+      resources :revenue, only: :index
 
       ### REST ###
       
