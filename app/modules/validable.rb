@@ -14,4 +14,8 @@ module Validable
     return true if min.to_i > 0 || max.to_i > 0
     false
   end
+
+  def valid_start_end_dates(start, end)
+    
+  end
 end
