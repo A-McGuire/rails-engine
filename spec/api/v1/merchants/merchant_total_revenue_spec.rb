@@ -27,4 +27,20 @@ RSpec.describe 'merchant total revenue' do
     expect(merchant[:data][:attributes]).to be_a Hash
     expect(merchant[:data][:attributes][:revenue]).to be_a Float
   end
+
+  describe 'sad path' do
+    it 'returns 404 if invalid merchant id' do
+      get '/api/v1/revenue/merchants/999999'
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+    end
+
+    it 'returns 400 if no merchant id' do
+      get '/api/v1/revenue/merchants/'
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+  end
 end
