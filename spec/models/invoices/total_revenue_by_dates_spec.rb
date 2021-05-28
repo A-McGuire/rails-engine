@@ -10,8 +10,8 @@ RSpec.describe 'total_revenue_by_dates(start, end)' do
     invoice2 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-10') 
     invoice3 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-24') 
     invoice4 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-23')
-    invoice5 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'pending', created_at: '2012-03-25') #not counted, date range
-    invoice6 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'pending', created_at: '2012-03-08') #not counted, date range
+    invoice5 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-25') #not counted, date range
+    invoice6 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-08') #not counted, date range
     invoice7 = create(:invoice, merchant_id: merchant2.id, customer_id: customer.id, status: 'shipped', created_at: '2012-03-10') #not counted, transaction failed
 
     item1 = create(:item, merchant: merchant1)

@@ -18,6 +18,7 @@ RSpec.describe 'Finds items' do
       expect(items).to be_a Hash
       expect(items).to have_key(:data)
       expect(items[:data]).to be_an Array
+      expect(items[:data].count).to eq(3)
       expect(items[:data].first.keys).to eq([:id, :type, :attributes])
       expect(items[:data].first[:id]).to be_a String
       expect(items[:data].first[:type]).to be_a String

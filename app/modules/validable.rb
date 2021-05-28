@@ -9,8 +9,7 @@ module Validable
     false
   end
 
-  def valid_min_max(min, max)
-    return false if min.nil? && max.nil?
+  def valid_min_max?(min, max)
     return true if min.to_i > 0 || max.to_i > 0
     false
   end

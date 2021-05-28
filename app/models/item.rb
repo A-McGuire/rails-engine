@@ -19,6 +19,7 @@ class Item < ApplicationRecord
 
     def find_by_min_max(min, max)
       where("items.unit_price >= #{min} AND items.unit_price <= #{max}")
+      .order(:name)
     end
   end
 end
