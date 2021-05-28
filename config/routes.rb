@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get '/items/find_all', to: 'items/items_search#find_all'
       
       resources :revenue, only: :index
+      get 'revenue/merchants/:merchant_id', to: 'revenue#show'
 
       ### REST ###
       
