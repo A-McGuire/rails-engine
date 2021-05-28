@@ -1,6 +1,5 @@
 require 'rails_helper'
 include Validable
-
 RSpec.describe 'valid_quantity(quanity)' do
   it 'returns true if the param is an integer and greater than 0' do
     expect(valid_quantity?(1)).to eq(true)
