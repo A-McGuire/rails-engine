@@ -11,8 +11,8 @@ RSpec.describe 'Merchants with most revenue, with required quantity param' do
     item2 = create(:item, merchant: merchant2)
 
     transaction1 = create(:transaction, invoice: invoice1, result: 'success')
-
     transaction2 = create(:transaction, invoice: invoice2, result: 'success')
+
     2.times do
       create(:invoice_item, item: item1, invoice: invoice1)
     end

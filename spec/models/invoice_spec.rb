@@ -7,6 +7,7 @@ RSpec.describe Invoice, type: :model do
     it {should have_many(:items).through(:invoice_items)}
     it {should belong_to :customer}
   end
+  
   describe 'class methods' do
     describe '.find_empty' do
       it 'returns invoices that have no invoice items' do

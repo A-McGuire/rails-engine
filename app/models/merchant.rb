@@ -31,7 +31,7 @@ class Merchant < ApplicationRecord
     end
 
     def find_one(name)
-      where("name iLIKE :iq", iq: "%#{name}%")
+      where("name iLIKE :search", search: "%#{name.downcase}%")
       .order(:name)
       .limit(1)
       .first
