@@ -31,10 +31,48 @@ RSpec.describe 'Revenue for date range' do
     expect(revenue).to be_a Hash
     expect(revenue).to have_key(:data)
     expect(revenue[:data]).to be_a Hash
-    expect(revenue[:data].keys).to eq([:id, :attributes])
+    expect(revenue[:data].keys).to eq([:id, :type, :attributes])
     expect(revenue[:data][:id]).to be nil
+    expect(revenue[:data][:type]).to be_a String
     expect(revenue[:data][:attributes]).to be_a Hash
     expect(revenue[:data][:attributes].keys).to eq([:revenue])
     expect(revenue[:data][:attributes][:revenue]).to be_a Float
+  end
+
+  describe 'sad path' do
+    it 'returns 400 if both params are missing' do
+      get '/api/v1/revenue'
+      
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns 400 if start_time param is missing' do
+      get '/api/v1/revenue?end=05-10-2020'
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns 400 if start_time param is blank' do
+      get '/api/v1/revenue?end='
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns 400 if end_time param is missing' do
+      get '/api/v1/revenue?start=05-10-2020'
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns 400 if end_time param is blank' do
+      get '/api/v1/revenue?start='
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
   end
 end
