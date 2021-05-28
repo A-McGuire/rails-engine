@@ -15,7 +15,8 @@ module Validable
     false
   end
 
-  def valid_start_end_dates(start, end)
-    
+  def valid_start_end_dates?(start_time, end_time)
+    return false if start_time.nil? || end_time.nil?
+    true
   end
 end
